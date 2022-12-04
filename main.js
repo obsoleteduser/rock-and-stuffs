@@ -3,6 +3,7 @@ const paper = document.querySelector('.paper')
 const scissors = document.querySelector('.scissors')
 const toolKit = document.querySelector('.select-tool')
 const score = document.querySelector('#score')
+const rules = document.querySelector('.rules')
 const tools = ['paper', 'scissors', 'rock']
 const computer  = tools[Math.floor(Math.random()*tools.length)]
 let user;
@@ -14,6 +15,23 @@ window.addEventListener('load', ()=>{
 
 let winAlert = document.createElement('div')
 winAlert.classList.add('winAlert')
+
+rules.addEventListener('click', ()=>{
+    let modal = document.createElement('div')
+    modal.classList.add('modal-overlay')
+    modal.innerHTML = `
+                        <div class="modal">
+                            <div class="modal-header">
+                            <h1>RULES</h1><img class="close" src="/assets/img/icon-close.svg">
+                            </div>
+                            <img class="helper" src="./assets/img/image-rules.svg">
+                        </div>
+                        `
+    document.getElementById('root').append(modal)
+    document.querySelector('.close').addEventListener('click', ()=>{
+        document.querySelector('.modal-overlay').style.display = 'none'
+    })
+})
 
 rock.addEventListener('click', ()=>{
     rock.style.gridColumn = '1/2'
@@ -72,6 +90,12 @@ scissors.addEventListener('click', ()=>{
 function checkWinner(){
     if(user===computer){ 
         winAlert.style.marginTop = '20rem'
+        winAlert.style.padding = '2rem'
+        winAlert.style.backgroundColor = 'green'
+        winAlert.style.color = 'white'
+        winAlert.style.borderRadius = '5px'
+        winAlert.style.cursor = 'pointer'
+        winAlert.addEventListener('click', ()=>location.reload())
         return "Play again!"
         
     }
